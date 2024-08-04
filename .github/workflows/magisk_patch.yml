@@ -1,0 +1,17 @@
+name: Patch boot images
+
+on:
+  workflow_dispatch:
+
+jobs:
+  patch_boot:
+    name: Download & patch boot images
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Patch boot images with Magisk
+        uses: 0xsharkboy/magisk-patch-action@main
+        with:
+          devices: beyond0lte,beyond1lte,beyond2lte,d1,d2s,d2x,f62
+          ota_link: https://raw.githubusercontent.com/Evolution-XYZ/OTA/udc/builds/
+          github_token: ${{ secrets.TOKEN }}
