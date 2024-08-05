@@ -4,14 +4,32 @@ on:
   workflow_dispatch:
 
 jobs:
-  patch_boot:
-    name: Download & patch boot images
+  patch_boot_s10:
+    name: Patch boot images for S10 series
     runs-on: ubuntu-latest
 
     steps:
       - name: Patch boot images with Magisk
         uses: 0xsharkboy/magisk-patch-action@main
         with:
-          devices: beyond0lte,beyond1lte,beyond2lte,d1,d2s,d2x,f62
+          devices: beyond0lte,beyond1lte,beyond2lte,beyondx
           ota_link: https://raw.githubusercontent.com/Evolution-XYZ/OTA/udc/builds/
+          release_title: Magisk patched boot images for S10 series
+          github_token: ${{ secrets.TOKEN }}
+
+      - name: Clean downloaded zip packages
+        run: find ./script/ -type f -name '*.zip' -delete
+
+  patch_boot_n10_f62:
+    name: Patch boot images for Note 10 series and F62
+    needs: patch_boot_s10
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Patch boot images with Magisk
+        uses: 0xsharkboy/magisk-patch-action@main
+        with:
+          devices: d1,d2s,d2x,f62
+          ota_link: https://raw.githubusercontent.com/Evolution-XYZ/OTA/udc/builds/
+          release_title: Magisk patched boot images for Note 10 series and f62
           github_token: ${{ secrets.TOKEN }}
