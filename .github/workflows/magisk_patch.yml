@@ -19,7 +19,7 @@ jobs:
 
       - name: Get current date
         id: date
-        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV ; ls -R
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
       - name: Upload patched boot images
         uses: softprops/action-gh-release@v2
@@ -28,5 +28,5 @@ jobs:
           name: ${{ env.date }}
           tag_name: ${{ github.run_id }}
           make_latest: 'true'
-          files: ./script/out/*.img'
+          files: ./script/out/*.img
           
